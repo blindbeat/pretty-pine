@@ -1,10 +1,21 @@
+import Reports from 'pages/Reports';
+import { Route, BrowserRouter as Router, Redirect, Switch } from 'react-router-dom';
 import './App.css';
-import Report from './components/Report';
 
 function App() {
   return (
     <div className="App">
-      <Report />
+      <Router>
+        <Switch>
+          <Route path='/reports'>
+            <Reports />
+          </Route>
+          <Route path='/'>
+            <Redirect to='reports' />
+          </Route>
+
+        </Switch>
+      </Router>
     </div>
   );
 }

@@ -2,11 +2,11 @@ import mongoose from "mongoose"
 const { Schema } = mongoose
 
 const reportSchema = Schema({
-    name: String,
-    surname: String,
+    name: { type: String, required: true },
+    surname: { type: String, required: true },
     middlename: String,
     birthday: Date,
-    mobile: Number,
+    mobile: String,
     work: String,
     info: String
 }, {

@@ -1,43 +1,64 @@
 import { useState } from 'react';
-import { Container, Paper, TextField, Grid, Stack, Button } from '@mui/material'
+import { Paper, TextField, Grid, Stack, Button } from '@mui/material'
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import DateAdapter from '@mui/lab/AdapterDateFns'
 import MuiPhoneNumber from 'material-ui-phone-number';
 import createReport from 'api/report.api';
+import { Link } from 'react-router-dom';
 
-export default function Report() {
+export default function CreateReport({ homePath }) {
   const [form, setForm] = useState({
     name: '',
     surname: '',
     middlename: '',
     birthday: null,
+    mobile: null,
     work: '',
-    description: ''
+    info: ''
   })
 
-  function handleChange(event) {
+  function handleEventChange(event) {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value })
   }
 
   function handleBirthdayChange(date) {
+    try {
+      date = date.toISOString()
+    } catch (error) {
+      date = null
+    }
     setForm({ ...form, birthday: date })
+  }
+
+  function handleMobileChange(mobile) {
+    setForm({ ...form, mobile: mobile })
   }
 
   function handleSubmit(event) {
     event.preventDefault()
-    const form = new FormData(event.target)
-    createReport(form)
+    const formData = new FormData()
+    for (const entry in form) {
+      if (form[entry] === '' || form[entry] === null) continue
+      formData.append(entry, form[entry])
+    }
+    createReport(formData)
   }
 
   return (
-    <Container>
+    <>
+      <Stack direction='row' justifyContent='left' sx={{
+        mt: 2,
+        mb: 2
+      }}>
+        <Button variant='contained' label='create' color='error' component={Link} to={`${homePath}`}>Cancel</Button>
+      </Stack>
       <Paper sx={{ padding: '20px' }}>
         <Grid container component='form' onSubmit={handleSubmit} spacing={2}>
           <Grid item sm={12} md={4}>
             <TextField
               value={form.name}
-              onChange={handleChange}
+              onChange={handleEventChange}
               label='name'
               name='name'
               variant="standard"
@@ -48,7 +69,7 @@ export default function Report() {
           <Grid item sm={12} md={4}>
             <TextField
               value={form.surname}
-              onChange={handleChange}
+              onChange={handleEventChange}
               label='surname'
               name='surname'
               variant="standard"
@@ -59,7 +80,7 @@ export default function Report() {
           <Grid item sm={12} md={4}>
             <TextField
               value={form.middlename}
-              onChange={handleChange}
+              onChange={handleEventChange}
               label='middle name'
               name='middlename'
               variant="standard"
@@ -78,13 +99,19 @@ export default function Report() {
             </LocalizationProvider>
           </Grid>
           <Grid item sm={12} md={8}>
-            <MuiPhoneNumber defaultCountry={'ua'} fullWidth margin='normal' />
+            <MuiPhoneNumber
+              value={form.mobile}
+              onChange={handleMobileChange}
+              name='mobile'
+              defaultCountry={'ua'}
+              fullWidth margin='normal'
+            />
           </Grid>
           <Grid item sm={12}>
             <TextField
               label='Work'
               value={form.work}
-              onChange={handleChange}
+              onChange={handleEventChange}
               name='work'
               variant="standard"
               fullWidth
@@ -93,9 +120,9 @@ export default function Report() {
           <Grid item sm={12}>
             <TextField
               label='Description'
-              value={form.description}
-              onChange={handleChange}
-              name='description'
+              value={form.info}
+              onChange={handleEventChange}
+              name='info'
               fullWidth
               multiline
               rows={12}
@@ -109,6 +136,6 @@ export default function Report() {
           </Grid>
         </Grid>
       </Paper>
-    </Container>
+    </>
   )
 }

@@ -1,5 +1,6 @@
+
 export default async function createReport(form) {
-  const response = await fetch('/api/report', {
+  const response = await fetch(`/api/report`, {
     method: 'POST',
     body: form
   })
