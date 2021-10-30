@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
     res.send('hello world!');
 })
 
-app.use('/api/report', report);
+app.use('/api/reports', report);
 
 app.listen(port, () => {
     `server listening on port ${port}`

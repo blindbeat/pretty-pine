@@ -1,14 +1,51 @@
+export async function postReport(form) {
 
-export default async function createReport(form) {
-  const response = await fetch(`/api/report`, {
+  const formData = new FormData()
+  for (const entry in form) {
+    if (form[entry] === '' || form[entry] === null) continue
+    formData.append(entry, form[entry])
+  }
+
+  const response = await fetch(`/api/reports`, {
     method: 'POST',
-    body: form
+    body: formData
   })
 
   if (!response.ok) {
-    // throw new Error(response.statusText)
-    console.log(response.statusText);
+    throw new Error(response.statusText)
   }
 
-  return await response.json()
+  return response.status
+}
+
+export async function fetchReports() {
+  const response = await fetch('/api/reports');
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
+}
+
+export async function fetchReport(id) {
+  const response = await fetch(`/api/reports/${id}`);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
+}
+
+export async function deleteReport(id) {
+  const response = await fetch(`/api/reports/${id}`, {
+    method: 'DELETE'
+  })
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return response.status;
 }

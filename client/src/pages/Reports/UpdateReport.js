@@ -4,7 +4,7 @@ import { postReport } from 'api/report.api';
 import { Link, useHistory } from 'react-router-dom';
 import ReportForm from './components/ReportForm';
 
-export default function CreateReport({ homePath }) {
+export default function UpdateReport({ homePath }) {
   const history = useHistory()
 
   const [requestPending, setRequestPending] = useState(false)

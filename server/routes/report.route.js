@@ -8,6 +8,21 @@ const upload = multer()
 
 router.use(upload.none())
 
+router.get('/:id', async (req, res) => {
+  const report = await Report.findOne({ '_id': req.params.id });
+  res.json(report)
+})
+
+router.delete('/:id', async (req, res) => {
+  const answer = await Report.deleteOne({ '_id': req.params.id });
+  res.sendStatus(204);
+})
+
+router.get('/', async (req, res) => {
+  const reports = await Report.find();
+  res.json(reports)
+})
+
 router.post('/',
   body('name').trim().not().isEmpty(),
   body('surname').trim().not().isEmpty(),
@@ -35,10 +50,12 @@ router.post('/',
 
       const mongoAnswer = await report.save()
       console.log(mongoAnswer);
-      res.sendStatus(200)
+      res.sendStatus(201)
     } catch (error) {
       console.log(error);
     }
-  })
+  }
+)
+
 
 export default router;
