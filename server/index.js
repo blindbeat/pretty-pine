@@ -1,10 +1,11 @@
-import express from "express"
+import express from "express";
 import mongoose from "mongoose";
-import report from "./routes/report.route.js"
+import report from "./controllers/reportController.js";
+
 const app = express();
 
-
-const port = process.env.PORT || 5000
+const port = process.env.PORT
+console.log(process.env.NODE_ENV);
 
 mongoose.connect('mongodb://localhost:27017/pretty-pine')
     .then(() => console.log('connected to db'))

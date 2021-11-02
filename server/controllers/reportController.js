@@ -1,7 +1,7 @@
 import express from "express"
 import { body, validationResult } from "express-validator";
 import multer from "multer";
-import Report from "../models/Report.js";
+import Report from "../models/reportModel.js";
 
 const router = express.Router();
 const upload = multer()
