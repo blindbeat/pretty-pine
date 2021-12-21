@@ -5,10 +5,10 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@mui/lab": "^5.0.0-alpha.51",
-    "@mui/material": "^5.0.4",
+    "@mui/material": "^5.2.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

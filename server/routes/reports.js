@@ -9,6 +9,6 @@ import {
 const router = express.Router();
 
 router.route('/').get(getManyReports).post(createReport);
-router.route('/id').get(getReport).delete(deleteReport);
+router.route('/:id').get(getReport).delete(deleteReport);
 
 export default router;

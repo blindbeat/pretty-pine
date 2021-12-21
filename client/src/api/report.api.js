@@ -1,6 +1,7 @@
 import apiURL from "./apiURL"
 
 const reportsURL = `${apiURL}/reports`
+console.log(reportsURL);
 
 export async function postReport(form) {
   const formData = new FormData()
@@ -9,7 +10,7 @@ export async function postReport(form) {
     formData.append(entry, form[entry])
   }
 
-  const response = await fetch(new URL(reportsURL), {
+  const response = await fetch(reportsURL, {
     method: 'POST',
     body: formData
   })
@@ -32,7 +33,7 @@ export async function fetchManyReports() {
 }
 
 export async function fetchReport(id) {
-  const response = await fetch(new URL('id', reportsURL));
+  const response = await fetch(`${reportsURL}/${id}`);
 
   if (!response.ok) {
     throw new Error(response.statusText);

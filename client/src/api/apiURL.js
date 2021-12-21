@@ -1,3 +1,3 @@
-const apiURL = process.env.APIURL || 'api/v1/'
+const apiURL = '/api/v1'
 
 export default apiURL

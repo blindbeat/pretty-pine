@@ -16,8 +16,14 @@ export const getManyReports = async (req, res) => {
   res.json(reports);
 };
 
-export const createReport = async (req, res) => {
-  // somecode
+export const createReport = async (req, res, next) => {
+  try {
+    const report = new Report(req.body);
+    await report.save();
+    res.sendStatus(201);
+  } catch (error) {
+    next(error);
+  }
 };
 
 // router.post('/',

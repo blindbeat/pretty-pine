@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button, Stack, CircularProgress } from "@mui/material";
 import { fetchManyReports } from "api/report.api";
 import { Link } from "react-router-dom";
-import ReportItem from "./components/ReportItem";
+import ReportListItem from "./components/ReportListItem";
 
 export default function ReportList({ homePath }) {
 
@@ -12,8 +12,9 @@ export default function ReportList({ homePath }) {
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true)
       try {
-        setLoading(true)
+        // throw new Error()
         const data = await fetchManyReports()
         setReports(data)
       } catch (error) {
@@ -34,9 +35,10 @@ export default function ReportList({ homePath }) {
       }}>
         <Button variant='contained' label='create' component={Link} to={`${homePath}/create`}>Create Report</Button>
       </Stack>
-      {loading && <CircularProgress sx={{ margin: 'auto', display: 'block' }} />}
-      {!loading && reports.map(report => {
-        return <ReportItem homePath={homePath} {...report} />
+      {error && <h1>Some error occured</h1>}
+      {loading && (error === null) && <CircularProgress sx={{ margin: 'auto', display: 'block' }} />}
+      {!loading && (error === null) && reports.map(report => {
+        return <ReportListItem key={report._id} homePath={homePath} {...report} />
       })}
     </>
   )
