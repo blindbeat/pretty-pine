@@ -1,9 +1,10 @@
 import express from 'express';
+import 'dotenv/config' // new es6 syntax?
 import mongoose from 'mongoose';
 import multer from 'multer';
-import errorHandler from './middleware/errorHandler.js';
-import notFound from './middleware/notFound.js';
 import apiRouter from './routes/reports.js';
+import notFound from './middleware/notFound.js';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 const upload = multer();
@@ -19,7 +20,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 mongoose.connect('mongodb://localhost:27017/pretty-pine')
-  .then(() => console.log('connected to db'))
+  .then(() => console.log('connected to database'))
   .catch((error) => console.log(error));
 
 app.listen(port, () => {
